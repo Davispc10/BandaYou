@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">	
+
+<div class="row">
+	<div class="col-sm-12">
+		<img alt="Citi2017" th:src="@{/images/citi2017.png}"
+			style="height: 120px; width: 300px; margin-left: 30px;" /> <img
+			alt="IFF" th:src="@{/images/logo-iff-centro.jpg}"
+			style="height: 120px; width: 300px; margin-right: 30px; float: right" />
+	</div>
+</div>
+
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#bs-example-navbar-collapse-1" aria-expanded="true">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+		</div>
+				
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a th:href="@{/}">Home <span class="sr-only">(current)</span></a></li>
+				<th:block sec:authorize="isAuthenticated()">
+					<li><a th:href="@{/bandas}">Bandas</a></li>
+					<li><a th:href="@{/musicas}">Músicas</a></li>					
+				</th:block>
+			</ul>
+
+			<th:block sec:authorize="isAuthenticated()">
+				<form th:action="@{/logout}" method="post"
+					class="navbar-form navbar-right" title="Logout" rel="tooltip">
+					<button class="btn btn-default btn-sm">
+						<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+					</button>
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<!-- Administrador Comum -->
+					<li sec:authorize="hasAuthority('ADMIN')">
+					   <a><span sec:authentication="name"></span>
+							| <span sec:authentication="principal.authorities">roles</span></a>
+					</li>
+					<!-- Usuario Comum -->
+					<li sec:authorize="not(hasAuthority('ADMIN'))"> 
+					  <a><span	sec:authentication="name"></span> | 
+					  <span	sec:authentication="principal.authorities">roles</span></a>
+					</li>
+				</ul>
+			</th:block>
+			<th:block sec:authorize="!isAuthenticated()">
+				<form th:action="@{/login}" method="get"
+					class="navbar-form navbar-right" title="Login" rel="tooltip">
+					<button class="btn btn-default btn-sm">
+						<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+					</button>
+				</form>
+			</th:block>
+		</div>
+	</div>
+</nav>
+
+
+</html>

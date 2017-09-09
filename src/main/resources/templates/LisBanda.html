@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<section layout:fragment="conteudo">
+	<div layout:include="MensagemGeral"></div>
+	<div class="panel panel-default" style="margin: 10px">
+		<div class="panel-heading">
+			<h1 class="panel-title">Lista de bandas</h1>
+			<a class="btn btn-link aw-link-panel" th:href="@{/bandas/novo}">Nova Banda</a>
+		</div>
+	<div class="panel-body">
+	<!-- <input type="hidden" id= "csrf-token" th:name="${_csrf.parameterName}" th:content="${_csrf.token}" /> -->
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Código</th>
+					<th>Nome</th>
+					<th>Email</th>
+					<th>Estilo</th>
+					<th colspan ="2"> Ação </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="banda : ${bandas}">
+					<td th:text="${banda.idBanda}">xxx</td>
+					<td th:text="${banda.nome}">xxx</td>
+					<td th:text="${banda.email}">xxx@xxx</td>
+					<td th:text="${banda.estilo}">xxxx-xx-xx</td>
+					<td><a th:href="@{/bandas/alterar/}+${banda.idBanda}" class="glyphicon glyphicon-pencil"></a></td>					
+					<td><a class="btn btn-link btn-xs" data-toggle="modal"
+						data-target="#confirmacaoExclusaoModal"
+						th:attr="data-codigo=${banda.idBanda}, data-descricao=${banda.nome}, data-model='banda'"
+						title="Excluir" rel="tooltip" data-placement="top">
+						  <span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<div layout:include="DialogoConfirmacaoExclusao"></div>
+	</div>
+</section>
+</html>
