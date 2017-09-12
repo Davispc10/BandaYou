@@ -14,9 +14,8 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="clearfix">
-					<h1 class="panel-title aw-titulo-panel">Nova Musica</h1>
-					<a class="btn btn-link aw-link-panel" th:href="@{/musicas}">Voltar
-						para pesquisa</a>
+					<h1 class="btn btn-primary">Nova Música</h1>
+					<a class="btn btn-primary" th:href="@{/musicas}">Voltar</a>
 				</div>
 			</div>
 
@@ -37,7 +36,7 @@
 
 				<div class="form-group"
 					th:classappend="${#fields.hasErrors('nome')} ? has-error">
-					<label for="nome" class="col-sm-2 control-label">Nome da Música</label>
+					<label for="nome" class="col-sm-2 control-label">Nome</label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="nome"
 							th:field="*{nome}" />
@@ -46,7 +45,7 @@
 
 			    <div class="form-group"
 					th:classappend="${#fields.hasErrors('compositor')} ? has-error">
-					<label for="compositor" class="col-sm-2 control-label">Nome do compositor</label>
+					<label for="compositor" class="col-sm-2 control-label">Compositor</label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="compositor"
 							th:field="*{compositor}" />
@@ -55,7 +54,7 @@
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-primary">Salvar</button>
+						<button type="submit" class="btn btn-success">Salvar</button>
 					</div>
 				</div>
 			</div>
