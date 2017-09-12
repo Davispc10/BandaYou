@@ -40,23 +40,18 @@ public class BandaController {
 	
 	@PostMapping("")
 	public String salvar(@Validated Banda banda, Errors erros, RedirectAttributes redirectAttributes){
-		//ModelAndView mv = new ModelAndView("FrmBanda");
-		//mv.addObject("bandas", bandas.findAll());
 		if(erros.hasErrors()){
 			return "FrmBanda";
 		}
-		//try {
 		this.bandas.save(banda);
 		redirectAttributes.addFlashAttribute("mensagem", "Banda salva com sucesso!");
-		return "redirect:/bandas";
-		//} catch(Exception e) {return mv;}		
+		return "redirect:/bandas";	
 	}	
 
 	@RequestMapping(value ="/excluir/{idBanda}")
 	public String excluirBandaByPathVariable(@PathVariable Long idBanda, HttpServletRequest request, 
 			HttpServletResponse response) {
 		this.bandas.delete(idBanda);
-		//attributes.addFlashAttribute("mensagem", "Banda excluída com sucesso!");
 		return "redirect:/bandas";
 	}
 	

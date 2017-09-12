@@ -36,22 +36,11 @@ $('#confirmacaoExclusaoModal').on('show.bs.modal', function(event) {
 	var modal = $(this);
 	var form = modal.find('form');
 	var action = form.data('url-base');
+	
 	if (!action.endsWith('/')) {
 		action += '/';
 	}
-	
-/* 	function f1() {
-	    var token1 = $('input#csrf-token').attr("content");
-	    $.ajax({
-	        type: "POST",
-	        beforeSend: function (request)
-	    	{
-	    	    request.setRequestHeader("X-CSRF-TOKEN", token1);
-	    	}
-	    });
-	 */
-	form.attr('action', action + model + 's/' + codigo);
-	
+	form.attr('action', action + model + 's/' + codigo);	
 	modal.find('.modal-body span').html('Tem certeza que deseja excluir o ' + model + ' <strong>' + descricao + '</strong>?');
 });
 </script>

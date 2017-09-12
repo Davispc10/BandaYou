@@ -40,7 +40,7 @@ public class MusicaController {
 	@RequestMapping("/novo")
 	public ModelAndView novo(){
 		ModelAndView mv = new ModelAndView("FrmMusica");
-		List<Banda> allbandas = bandas.findAll();
+		List<Banda> allbandas = bandas.findAllBandasinOrder();
 		mv.addObject(new Musica());		
 		mv.addObject("allBandas", allbandas);
 		return mv;
@@ -48,16 +48,12 @@ public class MusicaController {
 	
 	@PostMapping("")
 	public String salvar(@Validated Musica musica, Errors erros, RedirectAttributes redirectAttributes) {
-		//ModelAndView mv = new ModelAndView("FrmMusica");
-		//mv.addObject("musicas", musicas.findAll());
 		if(erros.hasErrors()){
 			return "FrmMusica";
-		}
-		//try {
-			this.musicas.save(musica);
-			redirectAttributes.addFlashAttribute("mensagem", "Música salva com sucesso!");
-			return "redirect:/musicas";
-		//} catch(Exception e){return mv;}		
+		}	
+		this.musicas.save(musica);
+		redirectAttributes.addFlashAttribute("mensagem", "Música salva com sucesso!");
+		return "redirect:/musicas";		
 	}
 	
 	@RequestMapping(value ="/excluir/{idMusica}")
@@ -71,13 +67,10 @@ public class MusicaController {
 	public ModelAndView alterarMusicaByPathVariable(@PathVariable("idMusica") Long idMusica, HttpServletRequest request, 
 			HttpServletResponse response, RedirectAttributes redirectAttributes) {
 		ModelAndView mv = new ModelAndView("FrmMusica");
-		//mv.addObject("musicas", musicas.findAll());
 		Musica musica = musicas.findOne(idMusica);
 		mv.addObject(musica);
-		List<Banda> allbandas = bandas.findAll();
+		List<Banda> allbandas = bandas.findAllBandasinOrder();
 		mv.addObject("allBandas", allbandas);
-		//redirectAttributes.addFlashAttribute("mensagem", "Música Editada com sucesso!");
-		//return "redirect:/musicas";
 		return mv;
 	}
 	
