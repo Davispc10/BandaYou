@@ -39,16 +39,17 @@ public class BandaController {
 	}
 	
 	@PostMapping("")
-	public ModelAndView salvar(@Validated Banda banda, Errors erros, RedirectAttributes redirectAttributes){
-		ModelAndView mv = new ModelAndView("FrmBanda");
-		mv.addObject("bandas", bandas.findAll());
+	public String salvar(@Validated Banda banda, Errors erros, RedirectAttributes redirectAttributes){
+		//ModelAndView mv = new ModelAndView("FrmBanda");
+		//mv.addObject("bandas", bandas.findAll());
 		if(erros.hasErrors()){
-			return mv;
+			return "FrmBanda";
 		}
-		try {
-			this.bandas.save(banda);
-			return new ModelAndView("redirect:bandas");
-		} catch(Exception e) {return mv;}		
+		//try {
+		this.bandas.save(banda);
+		redirectAttributes.addFlashAttribute("mensagem", "Banda salva com sucesso!");
+		return "redirect:/bandas";
+		//} catch(Exception e) {return mv;}		
 	}	
 
 	@RequestMapping(value ="/excluir/{idBanda}")

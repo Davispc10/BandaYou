@@ -7,7 +7,7 @@
 <section layout:fragment="conteudo">
 	<div layout:include="MensagemGeral"></div>
 
-	<form class="form-horizontal" method="POST" th:action="@{/bandas}"
+	<form class="form-horizontal" method="POST" enctype="multipart/form-data" th:action="@{/bandas}"
 		th:object="${banda}">
 		<div layout:include = "MessagemErro"></div>
 		
@@ -48,7 +48,22 @@
 						<input type="text" class="form-control" id="estilo"
 							th:field="*{estilo}" />
 					</div>
-				</div>
+				</div>				
+				
+		<!-- 		<table>
+				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+			    </table>
+			
+				
+				<div>
+		<ul>
+			<li th:each="file : ${files}">
+				<a th:href="${file}" th:text="${file}" /></a>
+			</li>
+		</ul>
+	</div>
+				 -->				
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
@@ -57,9 +72,6 @@
 				</div>
 			</div>
 		</div>
-	</form>
-
-
-
+	</form>	
 </section>
 </html>

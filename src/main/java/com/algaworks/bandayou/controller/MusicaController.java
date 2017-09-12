@@ -1,6 +1,5 @@
  package com.algaworks.bandayou.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +27,7 @@ import com.algaworks.bandayou.repository.Musicas;
 public class MusicaController {
 	@Autowired
 	private Musicas musicas;
+	@Autowired
 	private Bandas bandas;
 	
 	@GetMapping("")
@@ -41,8 +40,9 @@ public class MusicaController {
 	@RequestMapping("/novo")
 	public ModelAndView novo(){
 		ModelAndView mv = new ModelAndView("FrmMusica");
-		//mv.addObject("bandas", bandas.findAll());
+		List<Banda> allbandas = bandas.findAll();
 		mv.addObject(new Musica());		
+		mv.addObject("allBandas", allbandas);
 		return mv;
 	}
 	
@@ -74,20 +74,17 @@ public class MusicaController {
 		//mv.addObject("musicas", musicas.findAll());
 		Musica musica = musicas.findOne(idMusica);
 		mv.addObject(musica);
+		List<Banda> allbandas = bandas.findAll();
+		mv.addObject("allBandas", allbandas);
 		//redirectAttributes.addFlashAttribute("mensagem", "Música Editada com sucesso!");
 		//return "redirect:/musicas";
 		return mv;
 	}
 	
-	@RequestMapping(value="{/musicas/idMusica}", method = RequestMethod.DELETE)
+	@RequestMapping(value="{idMusica}", method = RequestMethod.DELETE)
 	public String excluir(@PathVariable Long idMusica, RedirectAttributes attributes) {
 		musicas.delete(idMusica);
 		attributes.addFlashAttribute("mensagem", "Música excluída com sucesso!");
 		return "redirect:/musicas";
 	}
-	
-//	@ModelAttribute("allbandas")
-//	public List<Banda> allbandas() {
-//	  return Arrays.asList(todasBandas = bandas.findAll());
-//	}
 }

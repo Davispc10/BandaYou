@@ -16,8 +16,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .authorizeRequests().antMatchers("/resources/**","/css/**","/fonts/**","/images/**","/js/**","/index","/").permitAll()
           .anyRequest().authenticated()
           .and().formLogin().loginPage("/login").permitAll()
-          .and().logout().permitAll();
-          //.and().csrf().disable();
+          .and().logout().permitAll()
+          .and().csrf().disable();
     }
 
     @Autowired
